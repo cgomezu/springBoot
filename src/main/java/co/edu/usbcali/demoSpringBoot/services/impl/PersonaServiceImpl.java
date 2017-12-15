@@ -16,18 +16,15 @@ public class PersonaServiceImpl implements PersonaService {
 
 	@Autowired
 	public void setPersonaRepository(PersonaRepository personaRepository) {
-		personaRepository = personaRepository;
+		this.personaRepository = personaRepository;
 	}
 
 	@Override
 	public void save(Persona persona) throws Exception{
 
-		if(persona.getId() == 0 || persona.getId() == null) {
-			throw new Exception("El id es obligatorio");
-		}
-		if(persona.getEmail().isEmpty() || persona.getEmail() == null) {
+		/*if(persona.getEmail().isEmpty() || persona.getEmail() == null) {
 			throw new Exception("El email es obligatorio");
-		}
+		}*/
 		if(persona.getName().isEmpty() || persona.getName() == null) {
 			throw new Exception("El nombre es obligatorio");
 		}

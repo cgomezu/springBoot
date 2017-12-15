@@ -25,7 +25,7 @@ public class Persona {
     private Integer id;
 
     // The user's email
-    @NotNull
+    @NotNull(message="El email debe estar lleno.")
     private String email;
 
     // The user's name
