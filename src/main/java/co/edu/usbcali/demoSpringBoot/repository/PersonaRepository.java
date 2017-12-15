@@ -8,9 +8,11 @@ import co.edu.usbcali.demoSpringBoot.model.Persona;
 
 import org.springframework.data.repository.CrudRepository;
 
-@RepositoryRestResource(collectionResourceRel = "people", path = "people")
+@RepositoryRestResource(collectionResourceRel = "persona", path = "persona")
 public interface PersonaRepository extends CrudRepository<Persona, Integer> {
 	
 	List<Persona> findByName(String name);
+	
+	
 
 }

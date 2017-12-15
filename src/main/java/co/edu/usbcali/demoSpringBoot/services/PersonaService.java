@@ -6,14 +6,14 @@ import co.edu.usbcali.demoSpringBoot.model.Persona;
 
 public interface PersonaService {
 	
-	void save(Persona persona);
+	void save(Persona persona) throws Exception;
 	
-	void delete(Integer id);
+	void delete(Integer id) throws Exception;
 	
-	void update(Persona persona);
+	void update(Persona persona) throws Exception;
 	
-	Persona findById(Integer id);
+	Persona findById(Integer id) throws Exception;
 	
-	List<Persona> findAll();
+	List<Persona> findAll() throws Exception;
 
 }
