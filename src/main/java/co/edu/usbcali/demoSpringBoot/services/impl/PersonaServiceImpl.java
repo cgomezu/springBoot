@@ -6,44 +6,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.usbcali.demoSpringBoot.model.Persona;
+import co.edu.usbcali.demoSpringBoot.model.TipoDocumento;
+import co.edu.usbcali.demoSpringBoot.model.Usuario;
 import co.edu.usbcali.demoSpringBoot.repository.PersonaRepository;
 import co.edu.usbcali.demoSpringBoot.services.PersonaService;
+import co.edu.usbcali.demoSpringBoot.services.TipoDocumentoService;
+import co.edu.usbcali.demoSpringBoot.services.UsuarioService;
 
 @Service
 public class PersonaServiceImpl implements PersonaService {
 
-	private PersonaRepository personaRepository;
-
 	@Autowired
-	public void setPersonaRepository(PersonaRepository personaRepository) {
-		this.personaRepository = personaRepository;
-	}
+	private PersonaRepository personaRepository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	@Autowired
+	private TipoDocumentoService tipoDocumentoService;
+
 
 	@Override
 	public void save(Persona persona) throws Exception{
 
-		/*if(persona.getEmail().isEmpty() || persona.getEmail() == null) {
-			throw new Exception("El email es obligatorio");
-		}*/
-		if(persona.getName().isEmpty() || persona.getName() == null) {
-			throw new Exception("El nombre es obligatorio");
+		Usuario usuario = usuarioService.findbyId(persona.getUsuario().getId());
+		if(usuario == null) {
+			throw new Exception("La usuario no existe");
 		}
-		if(persona.getLastname().isEmpty() || persona.getLastname() == null) {
-			throw new Exception("El nombre es obligatorio");
+		
+		TipoDocumento tipoDocumento = tipoDocumentoService.findbyId(persona.getTipoDocumento().getId());
+		if(tipoDocumento == null) {
+			throw new Exception("La tipo documento no existe");
 		}
-		if(persona.getCellphone().isEmpty() || persona.getCellphone() == null) {
-			throw new Exception("El celular es obligatorio");
-		}
-		if(persona.getAddress().isEmpty() || persona.getAddress() == null) {
-			throw new Exception("La direcciòn es obligatorio");
-		}
-		if(persona.getUsername().isEmpty() || persona.getUsername() == null) {
-			throw new Exception("El usuario es obligatorio");
-		}
-		if(persona.getPassword().isEmpty() || persona.getPassword() == null) {
-			throw new Exception("El password es obligatorio");
-		}
-
+		
+		persona.setUsuario(usuario);
+		persona.setTipoDocumento(tipoDocumento);
 		this.personaRepository.save(persona);
 
 	}
@@ -75,12 +72,6 @@ public class PersonaServiceImpl implements PersonaService {
 		}
 		if(persona.getAddress().isEmpty() || persona.getAddress() == null) {
 			throw new Exception("La direcciòn es obligatorio");
-		}
-		if(persona.getUsername().isEmpty() || persona.getUsername() == null) {
-			throw new Exception("El usuario es obligatorio");
-		}
-		if(persona.getPassword().isEmpty() || persona.getPassword() == null) {
-			throw new Exception("El password es obligatorio");
 		}
 		this.personaRepository.save(persona);
 	}

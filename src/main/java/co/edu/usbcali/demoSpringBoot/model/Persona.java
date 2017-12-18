@@ -1,19 +1,9 @@
 package co.edu.usbcali.demoSpringBoot.model;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
-/**
- * An entity User composed by seven fields (id, email, name, lastname, cellphone, username, password). The Entity
- * annotation indicates that this class is a JPA entity. The Table annotation
- * specifies the name for the table in the db.
- *
- * @author Marlon Olaya
- */
+
 @Entity
 @Table(name = "persona")
 //@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@userAppId")
@@ -24,40 +14,33 @@ public class Persona {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    // The user's email
+    // The person's email
     @NotNull(message="El email debe estar lleno.")
     private String email;
 
-    // The user's name
+    // The person's name
     @NotNull
     private String name;
 
-    // The user's lastname
+    // The person's lastname
     @NotNull
     private String lastname;
 
-    // The user's cellphone
+    // The person's cellphone
     @NotNull
     private String cellphone;
 
     // The user's address
     private String address;
 
-    // The user's username
+    //The user
     @NotNull
-    @Column(unique = true)
-    private String username;
+    @OneToOne
+    private Usuario usuario;
+    
+    @ManyToOne
+    private TipoDocumento tipoDocumento;
 
-    // The Password
-    @NotNull
-    private String password;
-
-    // The user's status
-    @NotNull
-    @Column(columnDefinition="varchar(2) default 'A'")
-    private String status;
-
-   
 
     //Getters and Setters
 
@@ -101,30 +84,6 @@ public class Persona {
         this.cellphone = cellphone;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -133,21 +92,22 @@ public class Persona {
         this.address = address;
     }
 
+    public Usuario getUsuario() {
+		return usuario;
+	}
 
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
+	public TipoDocumento getTipoDocumento() {
+		return tipoDocumento;
+	}
 
-    @Override
-    public String toString() {
-        return "UserApp{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", cellphone='" + cellphone + '\'' +
-                ", address='" + address + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", status='" + status + '\'' +
-                '}';
-    }
-} // class User
+	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+	
+	
+
+}
